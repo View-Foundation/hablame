@@ -44,13 +44,14 @@ class HablameChannel
 
         $hablameParameters = $notification->toHablame($notifiable)->toArray();
 
-        $response = $this->client->post(self::API_ENDPOINT, [
+        $response = $this->client->request('POST',self::API_ENDPOINT, [
             'headers' => [
+                'content-type' => 'application/json',
                 'account' => $account,
                 'apikey' => $apikey,
                 'token' => $token,
             ],
-            'json' => json_encode($hablameParameters),
+            'body' => json_encode($hablameParameters),
         ]);
 
         if ($response->getStatusCode() !== 200) {
