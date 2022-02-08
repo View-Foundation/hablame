@@ -56,6 +56,8 @@ class HablameChannel
 
         if ($response->getStatusCode() !== 200) {
             throw CouldNotSendNotification::serviceRespondedWithAnError($response);
+        }elseif(json_decode($response->getBody())->status !== '1x000'){
+            throw CouldNotSendNotification::serviceRespondedWithAnError($response);
         }
     }
 }
